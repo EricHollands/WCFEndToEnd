@@ -1,18 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿
+using GeoLib.Contracts;
 using GeoLib.Data;
-using System;
+using GeoLib.Services;
+using NSubstitute;
+using NUnit.Framework;
+
 
 namespace GeoLib.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class ManagerTests
     {
-        [TestMethod]
+        [Test]
         public void test_zip_code_retrieval()
         {
-
-            IMock<IZipCodeRepository> mockZipCodeRepository = new Mock<IZipCodeRepository>();
 
             ZipCode zipCode = new ZipCode()
             {
@@ -21,10 +22,17 @@ namespace GeoLib.Tests
                 Zip = "07035"
             };
 
-            //mockZipCodeRepository.Object.Add(zipCode);
-            //mockZipCodeRepository.Object.get
+            var mockZipCodeRepository = Substitute.For<IZipCodeRepository>();
+            mockZipCodeRepository.GetByZip("07035").Returns(zipCode);
 
+            IGeoService geoService = new GeoManager(mockZipCodeRepository);
 
+            ZipCodeData data = geoService.GetZipCodeInfo("07035");
+
+            Assert.That(zipCode.City.ToUpper(), Is.EqualTo("LINCOLN PARK"));
+            Assert.That(zipCode.State.Abbreviation, Is.EqualTo("NJ"));
+            Assert.That(zipCode.Zip, Is.EqualTo("07035"));
+            
         }
 
     }
