@@ -29,9 +29,9 @@ namespace GeoLib.Tests
 
             ZipCodeData data = geoService.GetZipCodeInfo("07035");
 
-            Assert.That(zipCode.City.ToUpper(), Is.EqualTo("LINCOLN PARK"));
-            Assert.That(zipCode.State.Abbreviation, Is.EqualTo("NJ"));
-            Assert.That(zipCode.Zip, Is.EqualTo("07035"));
+            Assert.That(data.City.ToUpper(), Is.EqualTo("LINCOLN PARK"));
+            Assert.That(data.State, Is.EqualTo("NJ"));
+            Assert.That(data.ZipCode, Is.EqualTo("07035"));
             
         }
 
