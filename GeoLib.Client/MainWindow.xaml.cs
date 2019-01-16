@@ -25,8 +25,17 @@ namespace GeoLib.Client
             {
                 GeoClient proxy = new GeoClient();
                 var ret = proxy.GetZipCodeInfo(txtBoxZipCode.Text);
-                lblCity.Content = ret.City;
-                lblState.Content = ret.State;
+                if(ret != null)
+                {
+                    lblCity.Content = ret.City;
+                    lblState.Content = ret.State;
+                }
+                else
+                {
+                    lblCity.Content = string.Empty;
+                    lblState.Content = string.Empty;
+                }
+                
 
                 proxy.Close();
             }

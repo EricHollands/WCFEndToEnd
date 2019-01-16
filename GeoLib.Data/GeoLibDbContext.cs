@@ -12,7 +12,7 @@ namespace GeoLib.Data
     public class GeoLibDbContext : DbContext
     {
         public GeoLibDbContext()
-            : base("name=main")
+            : base("Data Source=localhost;Initial Catalog=ZipCodeData;Integrated Security=True")
         {
             Database.SetInitializer<GeoLibDbContext>(null);
         }
